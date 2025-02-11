@@ -82,12 +82,14 @@ async function fetchVideoDetails(videoIds: string[]): Promise<YouTubeVideo[]> {
       const videoIdBatch = validVideoIds.slice(i, i + batchSize);
 
       try {
+          //@ts-ignore
           const response = await youtube.videos.list({
               part: ["snippet", "statistics"],
               id: videoIdBatch.join(",")
           });
-
+          //@ts-ignore
           if (response.data.items) {
+            //@ts-ignore
               allVideoDetails.push(...response.data.items.map((item) => ({
                   id: { videoId: item.id! },
                   snippet: item.snippet!,
